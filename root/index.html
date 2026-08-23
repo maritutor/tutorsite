@@ -27,7 +27,7 @@
 
         /* Hero Section */
         .hero {
-            background: url('hero_section_background.jpg') no-repeat center center;
+            background: url('recources/hero/hero_section_background.jpg') no-repeat center center;
             background-size: cover;
             color: #F5F5DC;
             min-height: 100vh;
@@ -87,6 +87,24 @@
         }
 
         .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .qr-image {
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+            border: 5px solid rgba(245, 245, 220, 0.3);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .qr-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -604,6 +622,126 @@
                 height: 150px;
             }
         }
+
+        /* Lessons Examples Carousel */
+        .lessons-examples {
+            background: #F5F5DC;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 100%;
+            transition: transform 0.5s ease;
+            touch-action: pan-y;
+            cursor: grab;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+        }
+
+        .carousel-track.dragging {
+            transition: none;
+            cursor: grabbing;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 450px;
+            background: #FAF3E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            display: block;
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(139, 0, 0, 0.75);
+            color: #F5F5DC;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.6rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .carousel-arrow:hover {
+            background: #8B0000;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-arrow.prev {
+            left: 15px;
+        }
+
+        .carousel-arrow.next {
+            right: 15px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background: #E8DCB5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: #8B0000;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-slide {
+                height: 280px;
+            }
+
+            .carousel-arrow {
+                width: 38px;
+                height: 38px;
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -614,7 +752,7 @@
                 <h1>Не нужно просто нагонять программу!</h1>
                 <p class="hero-subtitle">Понимайте и обгоняйте её!</p>
                 <div class="hero-image">
-                    <img src="hero_section_avatar.jpg" alt="Преподаватель английского языка">
+                    <img src="recources/hero/hero_section_avatar.jpg" alt="Преподаватель английского языка">
                 </div>
                 <a href="#contact" class="cta-button">Записаться на бесплатный пробный урок</a>
                 <div class="social-proof">⭐ Более 40 довольных учеников • 3 года опыта</div>
@@ -708,6 +846,25 @@
         </div>
     </section>
 
+    <!-- Lessons Examples -->
+    <section class="section lessons-examples" id="lessons-examples">
+        <div class="container">
+            <h2 class="section-title">Примеры уроков</h2>
+            <div class="carousel" id="lessonsCarousel">
+                <button class="carousel-arrow prev" id="carouselPrev" aria-label="Предыдущее изображение">‹</button>
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide"><img src="recources/carousel/lesson-1.jpg" alt="Пример урока 1"></div>
+                    <div class="carousel-slide"><img src="recources/carousel/lesson-2.jpg" alt="Пример урока 2"></div>
+                    <div class="carousel-slide"><img src="recources/carousel/lesson-3.jpg" alt="Пример урока 3"></div>
+                    <div class="carousel-slide"><img src="recources/carousel/lesson-4.jpg" alt="Пример урока 4"></div>
+                    <div class="carousel-slide"><img src="recources/carousel/lesson-5.jpg" alt="Пример урока 5"></div>
+                </div>
+                <button class="carousel-arrow next" id="carouselNext" aria-label="Следующее изображение">›</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+    </section>
+
     <!-- Reviews -->
     <section class="section reviews" id="reviews">
         <div class="container">
@@ -737,23 +894,23 @@
                 <div class="pricing-card featured">
                     <div class="popular-badge">Популярно</div>
                     <h3>Абонемент</h3>
-                    <div class="price">8000₽</div>
+                    <div class="price">10000₽</div>
                     <div class="price-period">4 занятия</div>
                     <ul class="features-list">
                         <li>60 минут занятие</li>
                         <li>Экономия 2000₽</li>
-                        <li>Приоритетная поддержка в чате 24/7</li>
+                        <li>Приоритетная поддержка в личном чате в течение дня</li>
                         <li>Отслеживание прогресса</li>
                     </ul>
                     <a href="#contact" class="cta-button">Записаться</a>
                 </div>
                 <div class="pricing-card">
                     <h3>Индивидуальное</h3>
-                    <div class="price">2500₽</div>
+                    <div class="price">3000₽</div>
                     <div class="price-period">за занятие</div>
                     <ul class="features-list">
                         <li>60 минут занятие</li>
-                        <li>Поддержка в чате 24/7</li>
+                        <li>Поддержка в личном чате</li>
                         <li>Отслеживание прогресса</li>
                     </ul>
                     <a href="#contact" class="cta-button">Записаться</a>
@@ -781,11 +938,11 @@
                 </div>
                 <div class="faq-card">
                     <h3>💻 В каком формате проводятся занятия?</h3>
-                    <p>Все занятия проводятся онлайн через Яндекс Телемост с использованием интерактивной доски, что делает их такими же эффективными, как и личные встречи..</p>
+                    <p>Все занятия проводятся онлайн через Яндекс Телемост или Zoom с использованием интерактивной доски, что делает их такими же эффективными, как и личные встречи..</p>
                 </div>
                 <div class="faq-card">
                     <h3>📅 Можно ли переносить занятия?</h3>
-                    <p>Да, вы можете перенести урок, предупредив об этом за сутки или утром в день занятия. Повторная оплата не требуется.</p>
+                    <p>Да, вы можете перенести урок, предупредив об этом за сутки или утром в день занятия. Повторная оплата не требуется. В случае отмены занятия менее, чем за пять часов до его начала, без уважительной причины, занятие считается оплаченным.</p>
                 </div>
                 <div class="faq-card">
                     <h3>💳 Как проходит оплата?</h3>
@@ -806,7 +963,15 @@
                 <div class="contact-method">
                     <div class="contact-icon">📱</div>
                     <h3>WhatsApp</h3>
-                    <p>+7 (967) 113 5776</p>
+                    <p></p>
+                    <p>
+                        <a href="https://wa.me/79192175211" target="_blank" style="color: inherit; text-decoration: none;">
+                            +7 (919) 217 5211
+                            <div class="qr-image">
+                                <img src="recources/contacts/whatsapp.png" alt="WhatsApp QR">
+                            </div>
+                        </a>
+                    </p>
                 </div>
                 <div class="contact-method">
                     <div class="contact-icon">✈️</div>
@@ -814,13 +979,23 @@
                     <p>
                         <a href="https://t.me/tutormari" target="_blank" style="color: inherit; text-decoration: none;">
                             @tutormari
+                            <div class="qr-image">
+                                <img src="recources/contacts/tg.png" alt="TG QR">
+                            </div>
                         </a>
                     </p>
                 </div>
                 <div class="contact-method">
-                    <div class="contact-icon">📧</div>
-                    <h3>Email</h3>
-                    <p>KovalevaMN2233@yandex.ru</p>
+                    <div class="contact-icon">🛡️</div>
+                    <h3>Max</h3>
+                    <p>
+                        <a href="https://max.ru/u/f9LHodD0cOL3yXHDs0_aIIi0YhS1JDkvikio89KJycl7Z85eGB9LMBcUVgU" style="color: inherit; text-decoration: none;">
+                            +7 (919) 217 5211
+                            <div class="qr-image">
+                                <img src="recources/contacts/max.JPG" alt="MAX QR">
+                            </div>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -833,7 +1008,6 @@
                 <a href="#about">О репетиторе</a>
                 <a href="#reviews">Отзывы</a>
                 <a href="#pricing">Тарифы</a>
-                <a href="#contact">Контакты</a>
             </div>
             <p>&copy; 2026 TutorMari.</p>
         </div>
@@ -1017,6 +1191,150 @@
             }
         });
     }
+
+    /* LESSONS CAROUSEL */
+    /* LESSONS CAROUSEL */
+    (function initLessonsCarousel() {
+        const track = document.getElementById('carouselTrack');
+        const dotsContainer = document.getElementById('carouselDots');
+        const prevBtn = document.getElementById('carouselPrev');
+        const nextBtn = document.getElementById('carouselNext');
+        if (!track || !dotsContainer || !prevBtn || !nextBtn) return;
+
+        const slides = track.querySelectorAll('.carousel-slide');
+        const slideCount = slides.length;
+        let currentIndex = 0;
+        let autoplayTimer = null;
+        const AUTOPLAY_DELAY = 3000;
+
+        // Предзагрузка изображений перед стартом автопрокрутки
+        let loadedCount = 0;
+        slides.forEach(slide => {
+            const img = slide.querySelector('img');
+            if (img.complete) {
+                loadedCount++;
+            } else {
+                img.addEventListener('load', () => { loadedCount++; });
+            }
+        });
+
+        // Dots
+        for (let i = 0; i < slideCount; i++) {
+            const dot = document.createElement('button');
+            dot.classList.add('carousel-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.setAttribute('aria-label', 'Слайд ' + (i + 1));
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+                restartAutoplay();
+            });
+            dotsContainer.appendChild(dot);
+        }
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+        function updateUI() {
+            track.style.transform = `translate3d(-${currentIndex * 100}%, 0, 0)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+        }
+
+        function goToSlide(index) {
+            currentIndex = (index + slideCount) % slideCount;
+            updateUI();
+        }
+
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentIndex - 1);
+        }
+
+        function startAutoplay() {
+            autoplayTimer = setInterval(nextSlide, AUTOPLAY_DELAY);
+        }
+
+        function stopAutoplay() {
+            if (autoplayTimer) {
+                clearInterval(autoplayTimer);
+                autoplayTimer = null;
+            }
+        }
+
+        function restartAutoplay() {
+            stopAutoplay();
+            startAutoplay();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            restartAutoplay();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            restartAutoplay();
+        });
+
+        // Swipe / drag support (touch + mouse)
+        let isDragging = false;
+        let startX = 0;
+        let currentTranslate = 0;
+
+        function getPositionX(e) {
+            return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        }
+
+        function dragStart(e) {
+            isDragging = true;
+            startX = getPositionX(e);
+            track.classList.add('dragging');
+            stopAutoplay();
+        }
+
+        function dragMove(e) {
+            if (!isDragging) return;
+            const currentX = getPositionX(e);
+            const diff = currentX - startX;
+            currentTranslate = -currentIndex * track.clientWidth + diff;
+            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+        }
+
+        function dragEnd(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            track.classList.remove('dragging');
+
+            const endX = (e.type.includes('mouse') ? e.pageX : (e.changedTouches ? e.changedTouches[0].clientX : startX));
+            const diff = endX - startX;
+            const threshold = track.clientWidth * 0.15;
+
+            if (diff > threshold) {
+                prevSlide();
+            } else if (diff < -threshold) {
+                nextSlide();
+            } else {
+                updateUI();
+            }
+            restartAutoplay();
+        }
+
+        track.addEventListener('mousedown', dragStart);
+        track.addEventListener('mousemove', dragMove);
+        track.addEventListener('mouseup', dragEnd);
+        track.addEventListener('mouseleave', (e) => {
+            if (isDragging) dragEnd(e);
+        });
+
+        track.addEventListener('touchstart', dragStart, { passive: true });
+        track.addEventListener('touchmove', dragMove, { passive: true });
+        track.addEventListener('touchend', dragEnd);
+
+        window.addEventListener('resize', updateUI);
+
+        updateUI();
+        startAutoplay();
+    })();
 
     window.addEventListener('scroll', revealSectionsOnScroll);
     window.addEventListener('load', revealSectionsOnScroll);
